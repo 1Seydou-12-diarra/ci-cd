@@ -10,25 +10,24 @@ name: construction d'un projet
 
 on:
   push:
-    branches: [ "main","develop" ]
-
+    branches:
+      - "main"
+      - "develop"
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name:  Téléchargement d'un projet
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+      - name: Téléchargement du projet
+        uses: actions/checkout@v4
 
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
 
-
+      - name: Build with Maven
+        run: mvn clean -Dmaven.test.skip=true -B package --file pom.xml
